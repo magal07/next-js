@@ -1,21 +1,31 @@
 export type PostID = number;
 
 export type PostAuthor = {
-  id: PostID;
+  data: {
+    id: PostID;
+    attributes: AuthorAttributesData;
+  };
+};
+
+export type AuthorAttributesData = {
   name: string;
-  created_by: number;
-  updated_by: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
+  publishAt: string;
 };
 
 export type PostCategory = {
-  id: PostID;
+  data: {
+    id: PostID;
+    attributes: CategoryAttributesData;
+  };
+};
+
+export type CategoryAttributesData = {
   name: string;
-  created_by: number;
-  updated_by: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
+  publishAt: string;
 };
 
 export type PostCreatedBy = {
@@ -23,6 +33,13 @@ export type PostCreatedBy = {
   firstname: string;
   lastname: string;
   username: null;
+};
+
+export type PostCover = {
+  data: {
+    id: PostID;
+    attributes: PostCoverAttributes;
+  } | null;
 };
 
 export type PostCoverFormat = {
@@ -41,16 +58,15 @@ export type PostCoverFormat = {
   };
 };
 
-export type PostCover = PostCoverFormat & {
-  id: PostID;
+export type PostCoverAttributes = {
   alternativeText: string;
   caption: string;
   previewUrl: null;
   provider: string;
   created_by: number;
   updated_by: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   formats: {
     thumbnail: PostCoverFormat;
     small: PostCoverFormat;
@@ -59,8 +75,7 @@ export type PostCover = PostCoverFormat & {
   };
 };
 
-export type PostData = {
-  id: PostID;
+export type PostAttributesData = {
   title: string;
   content: string;
   slug: string;
@@ -68,7 +83,22 @@ export type PostData = {
   category: PostCategory;
   created_by: PostCreatedBy;
   updated_by: PostCreatedBy;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   cover: PostCover;
+};
+
+export type PostData = {
+  id: PostID;
+  attributes: PostAttributesData;
+  title: string;
+  slug: string;
+  cover?: {
+    url?: string;
+    formats?: {
+      small?: {
+        url: string;
+      };
+    };
+  };
 };
