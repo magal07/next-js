@@ -12,7 +12,9 @@ export default function Home({ posts }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts(
+    'sort=id:desc&pagination[start]=0&pagination[limit]=10',
+  );
   return {
     props: { posts },
     // revalidate: 5, caso quisse que a página atualizasse a cada 5 segundos
